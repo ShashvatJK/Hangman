@@ -19,7 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="backgroundColor" value="ff0000" />
+                                      <entry key="backgroundColor" value="ff7603" />
+                                      <entry key="dogEared" value="true" />
                                       <entry key="iconShape" value="CIRCLE" />
                                       <entry key="imageAsset" value="C:\Users\hp\Desktop\Hangman.png" />
                                     </map>
