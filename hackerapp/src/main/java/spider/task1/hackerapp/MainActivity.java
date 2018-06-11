@@ -3,20 +3,15 @@ package spider.task1.hackerapp;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.inputmethodservice.Keyboard;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-
 import java.util.Random;
-import android.text.TextWatcher;
-
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     TextView txtword,txtwrong,txthangman,textView1,textView2,textView3,txtbest;
     EditText txtletter;
     ConstraintLayout bg;
-    Keyboard k;
     int wrong_guess_count = 0;
     int index;
     String word;
@@ -33,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView img;
     public static final String MY_PREFS_NAME = "BestScoreFile";
 
-
+    int hack=0;
     int bestscore;
 
     @Override
@@ -134,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                             txtwrong.setText("");
                             txtletter.setEnabled(false);
                         }
-                        if (count2 == word.length()) {
+                        if (count2 == word.length()){
                             if(wrong_guess_count < bestscore){
                                 editor.putInt("Best Score", wrong_guess_count);
                                 editor.apply();
@@ -195,6 +189,30 @@ public class MainActivity extends AppCompatActivity {
                 txtletter.setEnabled(true);
                 check.setEnabled(true);
                 generate();
+            }
+        });
+
+        txthangman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (wrong_guess_count==8) {
+                    hack++;
+                    txtword.setText("");
+                    if(hack%2==1) {
+                        for (int i = 0; i < word.length(); i++) {
+                            txtword.append(word_bg[i] + "");
+                        }
+                    }else{
+                        for (int i = 0; i < word.length(); i++) {
+                            txtword.append(word_fg[i] + "");
+                        }
+                    }
+                } else {
+                    editor.putInt("Best Score", 8);
+                    editor.apply();
+                    bestscore=prefs.getInt("Best Score",8);
+                    txtbest.setText("" + bestscore);
+                }
             }
         });
     }
